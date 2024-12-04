@@ -202,101 +202,84 @@ func hitungSuara(input Suara, panjang int) (int, int, map[int]int, []int) {
 
 
    ## SOAL 3
-  Program di atas adalah program untuk menghitung suara dalam sebuah pemungutan suara dengan beberapa aturan. 
+  Program di atas adalah program pencarian biner (binary search) yang digunakan untuk mencari posisi suatu elemen dalam array yang telah diurutkan.
    
    ## Overview
       Program ini terdiri dari satu file bernama 'main.go' dan mencakup komponen-komponen utama berikut:
       - Pernyataan 'package main', yang mendefinisikan paket untuk program yang dapat dieksekusi.
       - Pernyataan 'import', yang digunakan untuk menyertakan paket-paket yang diperlukan (dalam hal ini, 'fmt' dan 'math').
       - Fungsi 'main()', yang merupakan titik awal dari setiap program Go.
-      - Pendefinisian Tipe Data Suara, Tipe data array tetap dengan panjang maksimum 1000 elemen, digunakan untuk menyimpan suara yang diterima dalam pemungutan suara.
-      - Fungsi hitungSuara, Fungsi utama yang melakukan perhitungan suara. Fungsi ini menghitung total suara masuk, jumlah suara sah, jumlah suara per kandidat, serta menghasilkan daftar kandidat yang diurutkan secara ascending menggunakan algoritma bubble sort.
-      - Validasi Input, Logika di dalam fungsi hitungSuara memeriksa apakah suara termasuk dalam rentang valid (1–20). Suara di luar rentang ini dianggap tidak sah dan tidak dihitung.
+      - Deklarasi konstanta dan variabel global, const NMAX = 1000000 dan var data [NMAX]int untuk mendeklarasikan kapasitas maksimum array dan array untuk menyimpan data.
+      - Fungsi isiArray, Fungsi untuk mengisi array dengan input nilai-nilai yang dimasukkan oleh pengguna.
+      - Fungsi posisi: Fungsi untuk melakukan pencarian biner (binary search) dalam array untuk menemukan posisi nilai k. Jika ditemukan, mengembalikan indeks; jika tidak, mengembalikan -1.
 
       
    ## Code Explanation
    ```go
-   type Suara [1000]int
+   const NMAX = 1000000
    ```
-   Kode di atas adalah kode untuk mendefinisikan tipe data baru yang disebut Suara, yang merupakan sebuah array dengan panjang tetap 1000 elemen bertipe int. 
+   Kode di atas adalah kode untuk deklarasi konstanta dalam program yang menetapkan nilai NMAX sebesar 1.000.000. Konstanta ini digunakan untuk menentukan kapasitas maksimum array data, yaitu sebesar 1.000.000 elemen. 
   
    ```go
-func hitungSuara(input Suara, panjang int) (int, int, map[int]int, []int) {
-		totalSuara := 0
-		suaraSah := 0
-		jumlahSuara := make(map[int]int)
-		var urutan []int
+   var data [NMAX]int
+   ```
+   Kode di atas adalah kode untuk deklarasi array data yang memiliki ukuran tetap sebesar NMAX, yang sebelumnya didefinisikan sebagai 1.000.000. Array ini bertipe int, yang berarti setiap elemen dalam array dapat menyimpan nilai bertipe integer. 
+
+   ```go
+   var n, k int
+   ```
+   Kode di atas adalah deklarasi dua variabel bertipe int, yaitu n dan k. Variabel n digunakan untuk menyimpan jumlah elemen yang akan dimasukkan ke dalam array, sementara variabel k digunakan untuk menyimpan nilai yang akan dicari dalam array.
+   
+   ```go
+   fmt.Scan(&n, &k)
+   ```
+   Kode di atas adalah kode perintah untuk membaca input dari pengguna dan menyimpannya ke dalam variabel n dan k.
+
+   ```go
+   isiArray(n)
+   ```
+   Kode di atas adalah pemanggilan fungsi isiArray dengan parameter n, yang merupakan jumlah elemen yang akan dimasukkan ke dalam array.
+
+   ```go
+   pos := posisi(n, k)
+   ```
+   Kode di atas adalah pemanggilan fungsi posisi dengan parameter n (jumlah elemen dalam array) dan k (nilai yang dicari). 
+   
+   ```go
+	if pos == -1 {
+		fmt.Println("TIDAK ADA")
+	} else {
+		fmt.Println(pos)
+	}
+   ```
+   Kode di atas adalah kode yang digunakan untuk memeriksa hasil pencarian biner yang disimpan dalam variabel pos. Jika nilai pos adalah -1, yang berarti elemen k tidak ditemukan dalam array, program akan mencetak "TIDAK ADA". Sebaliknya, jika nilai pos bukan -1, yang berarti elemen k ditemukan dalam array, program akan mencetak posisi (indeks) elemen tersebut. 
+
+   ```go
+	func isiArray(n int) {
+		for i := 0; i < n; i++ {
+			fmt.Scan(&data[i])
+		}
+	}
+   ```
+   Kode di atas adalah fungsi untuk mengisi array dengan input dari pengguna. Fungsi isiArray menerima parameter n, yang menentukan jumlah elemen yang akan dimasukkan ke dalam array data. 
+
+   ```go
+	func posisi(n, k int) int {
+		low := 0
+		high := n - 1
 	
-		for i := 0; i < panjang; i++ {
-			if input[i] == 0 {
-				break
-			}
-			totalSuara++
-			if input[i] >= 1 && input[i] <= 20 {
-				suaraSah++
-				if jumlahSuara[input[i]] == 0 {
-					urutan = append(urutan, input[i])
-				}
-				jumlahSuara[input[i]]++
+		for low <= high {
+			mid := (low + high) / 2
+			if data[mid] == k {
+				return mid 
+			} else if data[mid] < k {
+				low = mid + 1 
+			} else {
+				high = mid - 1 
 			}
 		}
 	
-		for i := 0; i < len(urutan)-1; i++ {
-			for j := i + 1; j < len(urutan); j++ {
-				if urutan[i] > urutan[j] {
-					temp := urutan[i]
-					urutan[i] = urutan[j]
-					urutan[j] = temp
-				}
-			}
-		}
-	
-		return totalSuara, suaraSah, jumlahSuara, urutan
+		return -1 
 	}
    ```
-   Kode di atas adalah sebuah fungsi bernama hitungSuara yang menerima dua parameter: input berupa array Suara dan panjang yang menunjukkan jumlah elemen suara yang dimasukkan. Fungsi ini berfungsi untuk menghitung total suara, jumlah suara sah, serta menghitung jumlah suara yang diterima oleh masing-masing kandidat, dengan membatasi suara yang sah dalam rentang 1 hingga 20. Jika suara yang dimasukkan adalah 0, proses penghitungan akan dihentikan. Fungsi ini juga mengurutkan kandidat berdasarkan nomor mereka menggunakan algoritma bubble sort. Setelah itu, fungsi mengembalikan empat nilai: total suara masuk, total suara sah, peta jumlah suara per kandidat (map), dan daftar kandidat yang sudah diurutkan berdasarkan nomor secara ascending.
-
-   ```go
-	var suara Suara
-   ```
-   Kode di atas adalah deklarasi variabel suara yang bertipe Suara, sebuah array dengan kapasitas maksimal 1000 elemen bertipe int. 
-   
-   ```go
-	fmt.Println("Masukkan suara (akhiri dengan 0) :")
-	var suara Suara
-	panjang := 0
-
-	for i := 0; i < len(suara); i++ {
-		var angka int
-		fmt.Scan(&angka)
-		if angka == 0 {
-			break
-		}
-		suara[i] = angka
-		panjang++
-	}
-   ```
-   Kode di atas adalah kode yang meminta input suara dari pengguna. Program mencetak pesan "Masukkan suara (akhiri dengan 0) :" dan menyimpan input suara dalam array suara dengan kapasitas maksimal 1000 elemen. Variabel panjang digunakan untuk menghitung jumlah suara yang dimasukkan. Dalam loop, program menerima input suara melalui fmt.Scan(&angka), menyimpannya dalam array, dan berhenti jika angka 0 dimasukkan.
-
-   ```go
-   total, sah, jumlah, urutan := hitungSuara(suara, panjang)
-   ```
-   Kode di atas adalah pemanggilan fungsi hitungSuara dengan parameter suara dan panjang, yang digunakan untuk menghitung total suara, jumlah suara sah, jumlah suara per kandidat, dan daftar kandidat yang diurutkan. 
-
-   ```go
-	fmt.Println("Suara masuk:", total)
-	fmt.Println("Suara sah:", sah)
-   ```
-   Kode di atas adalah Kode yang mencetak total suara masuk dan jumlah suara sah menggunakan variabel total dan sah.
-   
-   ```go
-	for i := 0; i < len(urutan); i++ {
-		calon := urutan[i]
-		fmt.Println(calon, ":", jumlah[calon])
-	}
-   ```
-   Kode di atas adalah kode yang digunakan untuk mencetak daftar kandidat beserta jumlah suara yang diterima. Program mengiterasi array urutan dan untuk setiap kandidat (calon), mencetak nomor kandidat beserta jumlah suara yang diterima, yang diambil dari map jumlah.
-
-   
-
-   
+   Kode di atas adalah implementasi algoritma pencarian biner (binary search) untuk mencari posisi elemen dalam array yang telah terurut. Fungsi posisi menerima dua parameter, yaitu n (jumlah elemen dalam array) dan k (nilai yang dicari).
