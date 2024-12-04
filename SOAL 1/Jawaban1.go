@@ -15,7 +15,7 @@ func hitungSuara(input Suara, panjang int) (int, int, map[int]int, []int) {
 			break
 		}
 		totalSuara++
-		if input[i] >= 1 && input[i] <= 20 {
+		if input[i] >= 1 && input[i] <= 1000 {
 			suaraSah++
 			if jumlahSuara[input[i]] == 0 {
 				urutan = append(urutan, input[i])
