@@ -5,7 +5,7 @@
    ## Overview
       Program ini terdiri dari satu file bernama 'main.go' dan mencakup komponen-komponen utama berikut:
       - Pernyataan 'package main', yang mendefinisikan paket untuk program yang dapat dieksekusi.
-      - Pernyataan 'import', yang digunakan untuk menyertakan paket-paket yang diperlukan (dalam hal ini, 'fmt' dan 'math').
+      - Pernyataan 'import', yang digunakan untuk menyertakan paket-paket yang diperlukan (dalam hal ini, 'fmt').
       - Fungsi 'main()', yang merupakan titik awal dari setiap program Go.
       - Pendefinisian Tipe Data Suara, Tipe data array tetap dengan panjang maksimum 1000 elemen, digunakan untuk menyimpan suara yang diterima dalam pemungutan suara.
       - Fungsi hitungSuara, Fungsi utama yang melakukan perhitungan suara. Fungsi ini menghitung total suara masuk, jumlah suara sah, jumlah suara per kandidat, serta menghasilkan daftar kandidat yang diurutkan secara ascending menggunakan algoritma bubble sort.
@@ -102,7 +102,7 @@ func hitungSuara(input Suara, panjang int) (int, int, map[int]int, []int) {
    ## Overview
       Program ini terdiri dari satu file bernama 'main.go' dan mencakup komponen-komponen utama berikut:
       - Pernyataan 'package main', yang mendefinisikan paket untuk program yang dapat dieksekusi.
-      - Pernyataan 'import', yang digunakan untuk menyertakan paket-paket yang diperlukan (dalam hal ini, 'fmt' dan 'math').
+      - Pernyataan 'import', yang digunakan untuk menyertakan paket-paket yang diperlukan (dalam hal ini, 'fmt').
       - Fungsi 'main()', yang merupakan titik awal dari setiap program Go.
       - Tipe Data SuaraArray, Sebuah array dengan kapasitas maksimum 1000 elemen bertipe int untuk menyimpan suara yang diterima dalam pemungutan suara.
       - Tipe Data Kandidat, Struktur data yang digunakan untuk menyimpan informasi tentang kandidat, yaitu nomor kandidat (Nomor) dan jumlah suara yang diterima (Suara).
@@ -207,7 +207,7 @@ func hitungSuara(input Suara, panjang int) (int, int, map[int]int, []int) {
    ## Overview
       Program ini terdiri dari satu file bernama 'main.go' dan mencakup komponen-komponen utama berikut:
       - Pernyataan 'package main', yang mendefinisikan paket untuk program yang dapat dieksekusi.
-      - Pernyataan 'import', yang digunakan untuk menyertakan paket-paket yang diperlukan (dalam hal ini, 'fmt' dan 'math').
+      - Pernyataan 'import', yang digunakan untuk menyertakan paket-paket yang diperlukan (dalam hal ini, 'fmt').
       - Fungsi 'main()', yang merupakan titik awal dari setiap program Go.
       - Deklarasi konstanta dan variabel global, const NMAX = 1000000 dan var data [NMAX]int untuk mendeklarasikan kapasitas maksimum array dan array untuk menyimpan data.
       - Fungsi isiArray, Fungsi untuk mengisi array dengan input nilai-nilai yang dimasukkan oleh pengguna.
